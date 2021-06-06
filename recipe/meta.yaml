@@ -11,7 +11,7 @@ source:
 
 build:
   number: 2
-  skip: true                                                  # [win or cuda_compiler_version in (undefined, 'None')]
+  skip: true                                                  # [win]
   script: "{{ PYTHON }} -m pip install . -vv"
 
   missing_dso_whitelist:
