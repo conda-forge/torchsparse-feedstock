@@ -10,8 +10,8 @@ source:
   sha256: 6fa80a875eb2bfa74a69dd1b8e64df1b699710d07c072ca504d4f25fbbcb8730
 
 build:
-  number: 0
-  skip: true                                                  # [osx or win or cuda_compiler_version in (undefined, 'None')]
+  number: 2
+  skip: true                                                  # [win]
   script: "{{ PYTHON }} -m pip install . -vv"
 
   missing_dso_whitelist:
@@ -26,16 +26,16 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}                                  # [linux64 and cuda_compiler_version not in (undefined, 'None')]
+    - {{ compiler('cuda') }}                                  # [linux and cuda_compiler_version not in (undefined, 'None')]
   host:
     - python
     - pip
     - sparsehash
-    - pytorch-cpu                                             # [osx or cuda_compiler_version in (undefined, 'None')]
+    - pytorch-cpu                                             # [cuda_compiler_version in (undefined, 'None')]
     - pytorch-gpu                                             # [cuda_compiler_version not in (undefined, 'None')]
   run:
     - python
-    - {{ pin_compatible('pytorch-cpu', max_pin='x.x.x') }}    # [osx or cuda_compiler_version in (undefined, 'None')]
+    - {{ pin_compatible('pytorch-cpu', max_pin='x.x.x') }}    # [cuda_compiler_version in (undefined, 'None')]
     - {{ pin_compatible('pytorch-gpu', max_pin='x.x.x') }}    # [cuda_compiler_version not in (undefined, 'None')]
 
 test:
