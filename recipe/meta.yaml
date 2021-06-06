@@ -10,7 +10,7 @@ source:
   sha256: 6fa80a875eb2bfa74a69dd1b8e64df1b699710d07c072ca504d4f25fbbcb8730
 
 build:
-  number: 0
+  number: 2
   skip: true                                                  # [win or cuda_compiler_version in (undefined, 'None')]
   script: "{{ PYTHON }} -m pip install . -vv"
 
