@@ -28,17 +28,19 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version not in (undefined, 'None')]
+    - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != 'None']
+    - pytorch-cpu  # [cuda_compiler_version == 'None' && build_platform != target_platform]
+    - pytorch-gpu  # [cuda_compiler_version != 'None' && build_platform != target_platform]
   host:
     - python
     - pip
     - sparsehash
-    - pytorch-cpu  # [cuda_compiler_version in (undefined, 'None')]
-    - pytorch-gpu  # [cuda_compiler_version not in (undefined, 'None')]
+    - pytorch-cpu  # [cuda_compiler_version == 'None']
+    - pytorch-gpu  # [cuda_compiler_version != 'None']
   run:
     - python
-    - {{ pin_compatible('pytorch-cpu', max_pin='x.x.x') }}  # [cuda_compiler_version in (undefined, 'None')]
-    - {{ pin_compatible('pytorch-gpu', max_pin='x.x.x') }}  # [cuda_compiler_version not in (undefined, 'None')]
+    - {{ pin_compatible('pytorch-cpu', max_pin='x.x.x') }}  # [cuda_compiler_version == 'None']
+    - {{ pin_compatible('pytorch-gpu', max_pin='x.x.x') }}  # [cuda_compiler_version != 'None']
 
 test:
   imports:
