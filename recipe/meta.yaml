@@ -11,13 +11,16 @@ source:
 
 build:
   number: 4
-  skip: true                                                  # [win]
+  skip: true  # [win]
   script: "{{ PYTHON }} -m pip install . -vv"
 
   missing_dso_whitelist:
-    - "$RPATH/libc10.so"
-    - "$RPATH/libtorch_cpu.so"
-    - "$RPATH/libtorch_python.so"
+    - "$RPATH/libc10.so"  # [linux64]
+    - "$RPATH/libtorch_cpu.so"  # [linux64]
+    - "$RPATH/libtorch_python.so"  # [linux64]
+    - "$RPATH/libc10.dylib"  # [osx]
+    - "$RPATH/libtorch_cpu.dylib"  # [osx]
+    - "$RPATH/libtorch_python.dylib"  # [osx]
     - /lib/libstdc++.so.6
     - /lib*/libgcc_s.so.1
     - /lib*/libc.so.6
