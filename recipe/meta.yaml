@@ -12,6 +12,7 @@ source:
 build:
   number: 4
   skip: true  # [win]
+  script_env: TORCH_USE_RTLD_GLOBAL=true  # [osx]
   script: "{{ PYTHON }} -m pip install . -vv"
 
   missing_dso_whitelist:
