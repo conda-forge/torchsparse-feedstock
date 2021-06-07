@@ -1,0 +1,56 @@
+From 96859d6d0a54b29420a0d4e39f300de49c4ff77a Mon Sep 17 00:00:00 2001
+From: Christopher Lee <csl170000@utdallas.edu>
+Date: Thu, 3 Jun 2021 09:49:21 -0700
+Subject: [PATCH] Replace `atomicadd` with PyTorch implementation (#75)
+
+---
+ torchsparse/src/common/gpu.cuh             | 5 -----
+ torchsparse/src/interpolation/devox_gpu.cu | 2 +-
+ torchsparse/src/others/insertion_gpu.cu    | 2 +-
+ 3 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/torchsparse/src/common/gpu.cuh b/torchsparse/src/common/gpu.cuh
+index aa4927c..1ada73f 100644
+--- a/torchsparse/src/common/gpu.cuh
++++ b/torchsparse/src/common/gpu.cuh
+@@ -104,11 +104,6 @@ template <typename Dtype1, typename Dtype2>
+ void print(const thrust::device_vector<Dtype1> &v1,
+            const thrust::device_vector<Dtype2> &v2);
+ 
+-// atomicadd for half types (from aten/src/THC/THCAtomics.cuh)
+-static inline  __device__ at::Half atomicAdd(at::Half *address, at::Half val) {
+-  return atomicAdd(reinterpret_cast<__half*>(address), val);
+-}
+-
+ // AtomicAddition for double with cuda arch <= 600
+ #if !defined(__CUDA_ARCH__) || __CUDA_ARCH__ >= 600
+ #else
+diff --git a/torchsparse/src/interpolation/devox_gpu.cu b/torchsparse/src/interpolation/devox_gpu.cu
+index 44c65a0..1f6286b 100644
+--- a/torchsparse/src/interpolation/devox_gpu.cu
++++ b/torchsparse/src/interpolation/devox_gpu.cu
+@@ -2,7 +2,7 @@
+ #include <stdlib.h>
+ #include <thrust/device_vector.h>
+ #include <torch/extension.h>
+-#include "../common/gpu.cuh"
++#include <THC/THCAtomics.cuh>
+ 
+ 
+ //input features (n, c), indices (N, 8), weight (N, 8) -> output features (N, c)
+diff --git a/torchsparse/src/others/insertion_gpu.cu b/torchsparse/src/others/insertion_gpu.cu
+index 04e48a2..5e8dc97 100644
+--- a/torchsparse/src/others/insertion_gpu.cu
++++ b/torchsparse/src/others/insertion_gpu.cu
+@@ -2,7 +2,7 @@
+ #include <stdlib.h>
+ #include <cmath>
+ #include <torch/torch.h>
+-#include "../common/gpu.cuh"
++#include <THC/THCAtomics.cuh>
+ 
+ //hashing
+ //input N*F float tensor, pointer to output N'*F int64 tensor, N*1 count tensor, N*1 index tensor
+-- 
+2.30.2
+
