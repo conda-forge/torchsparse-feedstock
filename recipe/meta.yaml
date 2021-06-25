@@ -9,18 +9,9 @@ package:
 source:
   url: https://github.com/mit-han-lab/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: a1cf3e8ecabb0f81cab7e14ed5ed0a31c8cb62b73d8ae172c50a779a82aae640
-  patches: atomic-add.patch
 
 build:
   number: {{ number }}
-#   skip: true  # [win]
-
-#   missing_dso_whitelist:
-#     - "$RPATH/libc10.so"
-#     - "$RPATH/libtorch_cpu.so"
-#     - "$RPATH/libtorch_python.so"
-#     - /lib/libstdc++.so.6
-#     - /lib*/libgcc_s.so.1
 
 requirements:
   build:
