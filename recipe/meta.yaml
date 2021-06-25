@@ -12,6 +12,7 @@ source:
 
 build:
   number: {{ number }}
+  skip: true  # [win]
 
 requirements:
   build:
