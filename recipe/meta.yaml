@@ -1,6 +1,6 @@
 {% set name = "torchsparse" %}
 {% set number = 6 %}
-{% set version = "1.3.0" %}
+{% set version = "1.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/mit-han-lab/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 6fa80a875eb2bfa74a69dd1b8e64df1b699710d07c072ca504d4f25fbbcb8730
+  sha256: a1cf3e8ecabb0f81cab7e14ed5ed0a31c8cb62b73d8ae172c50a779a82aae640
   patches: atomic-add.patch
 
 build:
@@ -55,7 +55,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'A high-performance computing library for efficient 3D sparse convolution.'
+  summary: A high-performance computing library for efficient 3D sparse convolution.
   description: |
     A high-performance computing library for efficient 3D sparse convolution.
   dev_url: https://github.com/mit-han-lab/{{ name }}
