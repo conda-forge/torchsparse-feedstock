@@ -18,7 +18,7 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - pytorch                                # [build_platform != target_platform]
+    - pytorch 1.8                            # [build_platform != target_platform]
 
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -27,7 +27,7 @@ requirements:
     - python
     - pip
     - sparsehash
-    - pytorch
+    - pytorch 1.8
   run:
     - python
     - {{ pin_compatible('pytorch', max_pin='x.x.x') }}
