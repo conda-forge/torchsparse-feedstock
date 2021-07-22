@@ -28,6 +28,7 @@ requirements:
     - pip
     - sparsehash
     - pytorch 1.8
+    - cudatoolkit                            # [linux64 and cuda_compiler_version != 'None']
   run:
     - python
     - {{ pin_compatible('pytorch', max_pin='x.x.x') }}
