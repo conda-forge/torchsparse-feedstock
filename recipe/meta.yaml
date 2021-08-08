@@ -18,7 +18,7 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - pytorch 1.8                            # [build_platform != target_platform]
+    - pytorch 1.9                            # [build_platform != target_platform]
 
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -27,7 +27,7 @@ requirements:
     - python
     - pip
     - sparsehash
-    - pytorch 1.8
+    - pytorch 1.9
     - cudatoolkit                            # [linux64 and cuda_compiler_version != 'None']
   run:
     - python
