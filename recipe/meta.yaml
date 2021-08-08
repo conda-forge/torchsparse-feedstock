@@ -1,5 +1,5 @@
 {% set name = "torchsparse" %}
-{% set number = 6 %}
+{% set number = 7 %}
 {% set version = "1.4.0" %}
 
 package:
@@ -31,8 +31,8 @@ requirements:
     - pytorch-gpu  # [cuda_compiler_version != 'None']
   run:
     - python
-    - {{ pin_compatible('pytorch-cpu', max_pin='x.x.x') }}  # [cuda_compiler_version == 'None']
-    - {{ pin_compatible('pytorch-gpu', max_pin='x.x.x') }}  # [cuda_compiler_version != 'None']
+    - pytorch-cpu  # [cuda_compiler_version == 'None']
+    - pytorch-gpu  # [cuda_compiler_version != 'None']
 
 test:
   imports:
