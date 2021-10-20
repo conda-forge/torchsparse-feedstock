@@ -1,5 +1,5 @@
 {% set name = "torchsparse" %}
-{% set number = 7 %}
+{% set number = 8 %}
 {% set version = "1.4.0" %}
 
 package:
