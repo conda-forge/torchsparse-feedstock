@@ -12,7 +12,11 @@ source:
 
 build:
   number: {{ number }}
-  skip: true  # [win]
+  skip: true  # [win or pytorch == "1.9.*" and cuda_compiler_version == "11.0" or pytorch == "1.8.*" and cuda_compiler_version == "11.0" or pytorch == "1.7.*" and cuda_compiler_version != "10.2"]
+
+  string: torch{{ pytorch | replace('.', '') | replace('*', '') }}_cuda{{ cuda_compiler_version | replace('.', '') }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  string: torch{{ pytorch | replace('.', '') | replace('*', '') }}_cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}       
+
 
 requirements:
   build:
@@ -27,13 +31,12 @@ requirements:
     - python
     - pip
     - sparsehash
-    - pytorch-cpu  # [cuda_compiler_version == 'None']
-    - pytorch-gpu  # [cuda_compiler_version != 'None']
+    - pytorch-cpu {{ pytorch }} #  [cuda_compiler_version == "None"]
+    - pytorch-gpu {{ pytorch }} #  [cuda_compiler_version != "None"]
   run:
     - python
-    - {{ pin_compatible('pytorch', max_pin='x.x.x') }}
-    - pytorch-cpu  # [cuda_compiler_version == 'None']
-    - pytorch-gpu  # [cuda_compiler_version != 'None']
+    - {{ pin_compatible('pytorch-cpu', min_pin='x.x.x', max_pin='x.x') }} #  [cuda_compiler_version == "None"]
+    - {{ pin_compatible('pytorch-gpu', min_pin='x.x.x', max_pin='x.x') }} #  [cuda_compiler_version != "None"]
 
 test:
   imports:
