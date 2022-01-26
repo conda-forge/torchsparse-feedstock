@@ -21,16 +21,14 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != 'None']
-    - pytorch 1.9
-    - pytorch-cpu  # [cuda_compiler_version == 'None' and build_platform != target_platform]
-    - pytorch-gpu  # [cuda_compiler_version != 'None' and build_platform != target_platform]
+    - pytorch-cpu ==1.10.0  # [cuda_compiler_version == 'None' and build_platform != target_platform]
+    - pytorch-gpu ==1.10.0  # [cuda_compiler_version != 'None' and build_platform != target_platform]
   host:
     - python
     - pip
     - sparsehash
-    - pytorch 1.9
-    - pytorch-cpu  # [cuda_compiler_version == 'None']
-    - pytorch-gpu  # [cuda_compiler_version != 'None']
+    - pytorch-cpu ==1.10.0 # [cuda_compiler_version == 'None']
+    - pytorch-gpu ==1.10.0 # [cuda_compiler_version != 'None']
   run:
     - python
     - {{ pin_compatible('pytorch', max_pin='x.x.x') }}
