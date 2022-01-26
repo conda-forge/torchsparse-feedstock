@@ -25,8 +25,8 @@ requirements:
     - python
     - pip
     - sparsehash
-    - pytorch-cpu {{ pytorch }}  # [cuda_compiler_version == "None"]
-    - pytorch-gpu {{ pytorch }}  # [cuda_compiler_version != "None"]
+    - pytorch-cpu  # [cuda_compiler_version == "None"]
+    - pytorch-gpu  # [cuda_compiler_version != "None"]
   run:
     - python
     - {{ pin_compatible('pytorch-cpu', min_pin='x.x.x', max_pin='x.x') }}  # [cuda_compiler_version == "None"]
