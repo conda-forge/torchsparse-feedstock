@@ -12,7 +12,7 @@ source:
 
 build:
   number: {{ number }}
-  skip: true  # [win, osx]
+  skip: true  # [win]
 
 requirements:
   build:
