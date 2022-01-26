@@ -12,11 +12,7 @@ source:
 
 build:
   number: {{ number }}
-  skip: true  # [win or pytorch == "1.9.*" and cuda_compiler_version == "11.0" or pytorch == "1.8.*" and cuda_compiler_version == "11.0" or pytorch == "1.7.*" and cuda_compiler_version != "10.2"]
-
-  string: torch{{ pytorch | replace('.', '') | replace('*', '') }}_cuda{{ cuda_compiler_version | replace('.', '') }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-  string: torch{{ pytorch | replace('.', '') | replace('*', '') }}_cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}       
-
+  skip: true  # [win, osx]
 
 requirements:
   build:
@@ -25,8 +21,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != 'None']
-    - pytorch-cpu  # [cuda_compiler_version == 'None' and build_platform != target_platform]
-    - pytorch-gpu  # [cuda_compiler_version != 'None' and build_platform != target_platform]
   host:
     - python
     - pip
