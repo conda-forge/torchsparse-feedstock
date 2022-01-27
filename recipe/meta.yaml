@@ -2,6 +2,11 @@
 {% set number = 8 %}
 {% set version = "1.4.0" %}
 
+# waiting for https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/1890
+{% set pytorch_version = "1.10.0" %}
+# see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
+{% set torch_proc_type = "cuda" if cuda_compiler_version != "None" else "cpu" %}
+
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -21,10 +26,13 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != 'None']
+    - sysroot_linux-64 ==2.17  # [linux64]
+    - pytorch ={{ pytorch_version }}={{ torch_proc_type }}*  # [build_platform != target_platform]
   host:
     - python
     - pip
     - sparsehash
+    - pytorch {{ pytorch_version }}
     - pytorch-cpu  # [cuda_compiler_version == "None"]
     - pytorch-gpu  # [cuda_compiler_version != "None"]
   run:
