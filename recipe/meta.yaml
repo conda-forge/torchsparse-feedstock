@@ -18,12 +18,11 @@ source:
 build:
   number: {{ number }}
   skip: true  # [win or osx]
-  build:
-    string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version == "None"]
-    string: py{{ CONDA_PY }}cuda{{ cuda_compiler_version|replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version != "None"]
-    run_exports:
-      # ensure matching proc-type
-      - torchvision =*=*_{{ torch_proc_type }}
+  string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version == "None"]
+  string: py{{ CONDA_PY }}cuda{{ cuda_compiler_version|replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version != "None"]
+  run_exports:
+    # ensure matching proc-type
+    - torchvision =*=*_{{ torch_proc_type }}
 
 requirements:
   build:
