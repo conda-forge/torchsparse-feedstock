@@ -8,17 +8,7 @@ package:
   name: {{ name|lower }}
   version: {{ version }}
 
-source:  run_constrained:
-    # 2022/02/05 hmaarrfk
-    # While conda packaging seems to allow us to specify
-    # constraints on the same package in different lines
-    # the resulting package doesn't have the ability to
-    # be specified in multiples lines
-    # This makes it tricky to use run_exports
-    # we add the GPU constraint in the run_constrained
-    # to allow us to have "two" constraints on the
-    # running package
-    - pytorch =*={{ torch_proc_type }}*
+source:
   url: https://github.com/mit-han-lab/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: a1cf3e8ecabb0f81cab7e14ed5ed0a31c8cb62b73d8ae172c50a779a82aae640
 
