@@ -34,7 +34,7 @@ requirements:
     - python
     - pip
     - sparsehash
-    - pytorch {{ pytorch_version }}
+    - pytorch {{ pytorch }}
     - pytorch =*={{ torch_proc_type }}*
   run:
     - python
