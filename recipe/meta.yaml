@@ -34,7 +34,10 @@ requirements:
     - python
     - pip
     - sparsehash
-    - pytorch {{ pytorch }}
+    # Leaving two dependencies helps rerender correctly
+    # The first gets filled in by the global pinnings
+    # The second gets the processor type
+    - pytorch
     - pytorch =*={{ torch_proc_type }}*
   run:
     - python
