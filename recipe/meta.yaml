@@ -13,7 +13,7 @@ source:
   sha256: a1cf3e8ecabb0f81cab7e14ed5ed0a31c8cb62b73d8ae172c50a779a82aae640
 
 build:
-  number: 11
+  number: 12
   skip: true  # [win or osx or cuda_compiler_version == "None" or cuda_compiler_version == "10.2"]
   string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version == "None"]
   string: py{{ CONDA_PY }}cuda{{ cuda_compiler_version|replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version != "None"]
