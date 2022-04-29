@@ -1,10 +1,6 @@
-export CFLAGS="$(echo $CFLAGS | sed 's/-fvisibility-inlines-hidden//g')"
-export CXXFLAGS="$(echo $CXXFLAGS | sed 's/-fvisibility-inlines-hidden//g')"
-export LDFLAGS="$(echo $LDFLAGS | sed 's/-Wl,--as-needed//g')"
-export LDFLAGS="$(echo $LDFLAGS | sed 's/-Wl,-dead_strip_dylibs//g')"
-export LDFLAGS_LD="$(echo $LDFLAGS_LD | sed 's/-dead_strip_dylibs//g')"
-export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations"
-export CFLAGS="$CFLAGS -Wno-deprecated-declarations"
+#!/usr/bin/env bash
+
+export CXXFLAGS="$CXXFLAGS -g -O3 -fopenmp"
 
 if [[ "$target_platform" == "osx-64" ]]; then
   export CXXFLAGS="$CXXFLAGS -DTARGET_OS_OSX=1"
@@ -18,6 +14,7 @@ LDFLAGS="${LDFLAGS//-Wl,-z,now/-Wl,-z,lazy}"
 if [[ "$cuda_compiler_version" == "None" ]]; then
   export FORCE_CUDA=0
 else
+  export CUDA_NVCC_FLAGS="$CUDA_NVCC_FLAGS -O3"
   export TORCH_CUDA_ARCH_LIST="3.5;5.0+PTX"
   if [[ ${cuda_compiler_version} == 9.0* ]]; then
       export TORCH_CUDA_ARCH_LIST="$TORCH_CUDA_ARCH_LIST;6.0;7.0"
