@@ -2,6 +2,7 @@
 
 if [[ "$target_platform" == "osx-64" ]]; then
   export CXXFLAGS="$CXXFLAGS -DTARGET_OS_OSX=1"
+  export CXXFLAGS="$CXXFLAGS -std=c++14"
   export CFLAGS="$CFLAGS -DTARGET_OS_OSX=1"
 fi
 
