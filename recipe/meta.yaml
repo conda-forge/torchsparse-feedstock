@@ -29,6 +29,7 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != 'None']
     - sysroot_linux-64 ==2.17  # [linux64]
+    - pytorch  # [build_platform != target_platform]
     - pytorch ={{ pytorch }}={{ torch_proc_type }}*  # [build_platform != target_platform]
   host:
     - python
@@ -55,7 +56,8 @@ requirements:
 
 test:
   imports:
-    - {{ name }}
+    - torchsparse
+    - torchsparse.backend
   requires:
     - pip
   commands:
