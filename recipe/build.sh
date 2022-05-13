@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ "$target_platform" == "osx-64" ]]; then
+  export CXXFLAGS="$CXXFLAGS -DTARGET_OS_OSX=1"
+  export CFLAGS="$CFLAGS -DTARGET_OS_OSX=1"
+fi
+
 # Dynamic libraries need to be lazily loaded so that torch
 # can be imported on system without a GPU
 LDFLAGS="${LDFLAGS//-Wl,-z,now/-Wl,-z,lazy}"
