@@ -44,15 +44,8 @@ requirements:
   run:
     - python
   run_constrained:
-    # 2022/02/05 hmaarrfk
-    # While conda packaging seems to allow us to specify
-    # constraints on the same package in different lines
-    # the resulting package doesn't have the ability to
-    # be specified in multiples lines
-    # This makes it tricky to use run_exports
-    # we add the GPU constraint in the run_constrained
-    # to allow us to have "two" constraints on the
-    # running package
+    # additional run constraint to the one from the (version-only) run_export;
+    # constraining the CPU builds to CPU pytorch isn't 100% necessary, but cleaner
     - pytorch =*={{ torch_proc_type }}*
 
 test:
