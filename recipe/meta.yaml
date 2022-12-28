@@ -1,15 +1,14 @@
-{% set name = "torchsparse" %}
 {% set version = "1.4.0" %}
 
 # see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
 {% set torch_proc_type = "cuda" if cuda_compiler_version != "None" else "cpu" %}
 
 package:
-  name: {{ name|lower }}
+  name: torchsparse
   version: {{ version }}
 
 source:
-  url: https://github.com/mit-han-lab/{{ name }}/archive/v{{ version }}.tar.gz
+  url: https://github.com/mit-han-lab/torchsparse/archive/v{{ version }}.tar.gz
   sha256: a1cf3e8ecabb0f81cab7e14ed5ed0a31c8cb62b73d8ae172c50a779a82aae640
 
 build:
@@ -58,7 +57,7 @@ requirements:
 
 test:
   imports:
-    - {{ name }}
+    - torchsparse
   requires:
     - pip
   commands:
@@ -72,7 +71,7 @@ about:
   summary: A high-performance computing library for efficient 3D sparse convolution.
   description: |
     A high-performance computing library for efficient 3D sparse convolution.
-  dev_url: https://github.com/mit-han-lab/{{ name }}
+  dev_url: https://github.com/mit-han-lab/torchsparse
 
 extra:
   recipe-maintainers:
