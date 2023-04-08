@@ -1,11 +1,11 @@
-About torchsparse
-=================
+About torchsparse-feedstock
+===========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/torchsparse-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/mit-han-lab/torchsparse
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/torchsparse-feedstock/blob/main/LICENSE.txt)
 
 Summary: A high-performance computing library for efficient 3D sparse convolution.
 
