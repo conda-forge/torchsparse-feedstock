@@ -36,6 +36,7 @@ requirements:
     - python
     - pip
     - sparsehash
+    - tqdm
     # Leaving two dependencies helps rerender correctly
     # The first gets filled in by the global pinnings
     # The second gets the processor type
@@ -43,6 +44,7 @@ requirements:
     - pytorch =*={{ torch_proc_type }}*
   run:
     - python
+    - tqdm
   run_constrained:
     # additional run constraint to the one from the (version-only) run_export;
     # constraining the CPU builds to CPU pytorch isn't 100% necessary, but cleaner
