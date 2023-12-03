@@ -10,6 +10,8 @@ package:
 source:
   url: https://github.com/mit-han-lab/torchsparse/archive/v{{ version }}.tar.gz
   sha256: 74e9cc0666487c54443b8fc7dbac4d6d7f9f5b747163c4f6b0a57c9e11c833ba
+  patches:
+    - 0001-Add-missing-cuda_fp16-header.patch
 
 build:
   number: 0
