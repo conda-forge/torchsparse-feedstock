@@ -27,9 +27,9 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
-  # Just reduce the build matrix for now
-  skip: true  # [py!=310]
-  skip: true  # [not linux]
+  # Keep this in line with the versions of cuda supported by
+  # the pytorch pin
+  skip: true  # [cuda_compiler_version in ("11.8", "12.0")]
   # as of pytorch 1.13, conda-forge only builds for CUDA 11.2+, see
   # https://github.com/conda-forge/conda-forge-pinning-feedstock/issues/3491
   skip: true  # [cuda_compiler_version in ("10.2", "11.0", "11.1")]
