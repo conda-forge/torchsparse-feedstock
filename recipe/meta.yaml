@@ -1,7 +1,18 @@
-{% set version = "1.4.0" %}
+{% set version = "2.0.0" %}
+{% set build = 0 %}
 
 # see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
 {% set torch_proc_type = "cuda" if cuda_compiler_version != "None" else "cpu" %}
+
+{% if cuda_compiler_version != "None" %}
+{% set build = build + 200 %}
+{% endif %}
+
+{% if cuda_compiler_version in (None, "None", True, False) %}
+{% set cuda_major = 0 %}
+{% else %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.8").split(".")[0] | int %}
+{% endif %}
 
 package:
   name: torchsparse
@@ -9,19 +20,21 @@ package:
 
 source:
   url: https://github.com/mit-han-lab/torchsparse/archive/v{{ version }}.tar.gz
-  sha256: a1cf3e8ecabb0f81cab7e14ed5ed0a31c8cb62b73d8ae172c50a779a82aae640
+  sha256: 74e9cc0666487c54443b8fc7dbac4d6d7f9f5b747163c4f6b0a57c9e11c833ba
+  patches:
+    - 0001-Add-missing-cuda_fp16-header.patch
 
 build:
-  number: 18
+  number: {{ build }}
   skip: true  # [win]
+  # Keep this in line with the versions of cuda supported by
+  # the pytorch pin
+  skip: true  # [cuda_compiler_version in ("11.8", "12.0")]
   # as of pytorch 1.13, conda-forge only builds for CUDA 11.2+, see
   # https://github.com/conda-forge/conda-forge-pinning-feedstock/issues/3491
   skip: true  # [cuda_compiler_version in ("10.2", "11.0", "11.1")]
   string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version == "None"]
   string: py{{ CONDA_PY }}cuda{{ cuda_compiler_version|replace('.', '') }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ torch_proc_type }}  # [cuda_compiler_version != "None"]
-  run_exports:
-    # ensure matching proc-type
-    - torchvision =*=*_{{ torch_proc_type }}
 
 requirements:
   build:
@@ -30,19 +43,48 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != 'None']
+    {% if cuda_major >= 12 %}
+    - cuda-driver-dev                        # [build_platform != target_platform]
+    - cuda-cudart-dev                        # [build_platform != target_platform]
+    - cuda-nvrtc-dev                         # [build_platform != target_platform]
+    - cuda-nvtx-dev                          # [build_platform != target_platform]
+    - cuda-nvml-dev                          # [build_platform != target_platform]
+    - cuda-profiler-api                      # [build_platform != target_platform]
+    - libcublas-dev                          # [build_platform != target_platform]
+    - libcufft-dev                           # [build_platform != target_platform]
+    - libcurand-dev                          # [build_platform != target_platform]
+    - libcusolver-dev                        # [build_platform != target_platform]
+    - libcusparse-dev                        # [build_platform != target_platform]
+    {% endif %}
     - sysroot_linux-64 ==2.17  # [linux64]
     - pytorch ={{ pytorch }}={{ torch_proc_type }}*  # [build_platform != target_platform]
   host:
+    - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
+    {% if cuda_major >= 12 %}
+    - cuda-driver-dev
+    - cuda-cudart-dev
+    - cuda-nvrtc-dev
+    - cuda-nvtx-dev
+    - cuda-nvml-dev
+    - cuda-profiler-api
+    - libcublas-dev
+    - libcufft-dev
+    - libcurand-dev
+    - libcusolver-dev
+    - libcusparse-dev
+    {% endif %}
     - python
     - pip
     - sparsehash
     # Leaving two dependencies helps rerender correctly
     # The first gets filled in by the global pinnings
     # The second gets the processor type
-    - pytorch
+    - pytorch 2.0
     - pytorch =*={{ torch_proc_type }}*
+    - tqdm
   run:
     - python
+    - tqdm
   run_constrained:
     # additional run constraint to the one from the (version-only) run_export;
     # constraining the CPU builds to CPU pytorch isn't 100% necessary, but cleaner
