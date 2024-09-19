@@ -20,6 +20,8 @@ else
       export TORCH_CUDA_ARCH_LIST="$TORCH_CUDA_ARCH_LIST;6.0;6.1;7.0;7.5;8.0;8.6+PTX"
   elif [[ ${cuda_compiler_version} == 11.2* ]]; then
       export TORCH_CUDA_ARCH_LIST="$TORCH_CUDA_ARCH_LIST;6.0;6.1;7.0;7.5;8.0;8.6+PTX"
+  elif [[ ${cuda_compiler_version} == 11.8* ]]; then
+      export TORCH_CUDA_ARCH_LIST="$TORCH_CUDA_ARCH_LIST;6.0;6.1;7.0;7.5;8.0;8.6+PTX"
   elif [[ ${cuda_compiler_version} == 12.0 ]]; then
       export TORCH_CUDA_ARCH_LIST="5.0;6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0+PTX"
       # $CUDA_HOME not set in CUDA 12.0. Using $PREFIX
