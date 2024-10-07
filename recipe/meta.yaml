@@ -35,6 +35,7 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
     - sparsehash
     # Leaving two dependencies helps rerender correctly
     # The first gets filled in by the global pinnings
